@@ -271,15 +271,20 @@ And we'll add the `app/assets/javascripts/templates/users/show.hbs` template
 {% endraw %}
 {% endhighlight %}
 
-Finally we need to replace the `<a>` tags in the `users` template to:
+Then we need to replace the `{{#each}}` helper block in the `users` template with:
 
 {% highlight html %}
 {% raw %}
-{{#linkTo 'users.show' user}}{{user.fullName}}{{/linkTo}}
+{{#each user in users}}
+  <tr>
+    <td>{{user.id}}</td>
+    <td>{{#linkTo 'users.show' user}}{{user.fullName}}{{/linkTo}}</td>
+  </tr>
+  {{/each}}
 {% endraw %}
 {% endhighlight %}
 
-So we are linking to the `showUsers` named route and passing the instance of a `User` as the paramater. Ember will pull out the id on the object and set that to the `:user_id` segment on the path.
+So we are linking to the `show` named route and passing the instance of a `User` as the parameter. Ember will pull out the id on the object and set that to the `:user_id` segment on the path.
 
 Reload your app and click through to the show page and you should see
 
